@@ -1,40 +1,17 @@
 package lizhao;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.io.Reader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
-import java.util.Date;
-import java.util.Properties;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import lizhao.util.Utils;
 
 import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSocketFactory;
-import javax.net.ssl.TrustManager;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import lizhao.util.Utils;
-
-import sun.misc.BASE64Encoder;
-import sun.org.mozilla.javascript.internal.json.JsonParser;
+import java.io.*;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Send extends HttpServlet {
 
@@ -114,7 +91,7 @@ public class Send extends HttpServlet {
 
         URL url2 = new URL("https://kyfw.12306.cn/otn/queryOrder/queryMyOrderNoComplete");
         HttpsURLConnection con2 = (HttpsURLConnection) url2.openConnection();
-//        con2.setSSLSocketFactory(ssf);
+        con2.setSSLSocketFactory(Utils.getSsf());
         InputStream is2 = con2.getInputStream();
         BufferedReader reader = new BufferedReader(new InputStreamReader(is2, "UTF-8"));
         String line = null;
@@ -129,6 +106,7 @@ login("289048093@qq.com", "lichao258", "test");
     private String login(String username,String password,String randCode) throws IOException{
         URL url = new URL("https://kyfw.12306.cn/otn/login/loginAysnSuggest?loginUserDTO.user_name="+username+"&userDTO.password="+password+"&randCode="+randCode);
         HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
+        con.setSSLSocketFactory(Utils.getSsf());
         try {
             InputStream is = con.getInputStream();
             BufferedReader br = new BufferedReader(new InputStreamReader(is,"UTF-8"));

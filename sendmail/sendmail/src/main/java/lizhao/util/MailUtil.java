@@ -5,6 +5,7 @@ import java.util.Properties;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 
@@ -49,7 +50,7 @@ public final class MailUtil {
 //		}
 		// 邮件服务器发送代码。
 		try {
-			JavaMailSenderImpl javaMailSenderImpl = getMailSender();
+			JavaMailSender javaMailSenderImpl = getMailSender();
 			MimeMessage msg = javaMailSenderImpl.createMimeMessage();
 			MimeMessageHelper helper;
 			helper = new MimeMessageHelper(msg, false, "utf-8");

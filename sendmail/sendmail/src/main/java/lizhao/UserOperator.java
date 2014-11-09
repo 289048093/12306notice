@@ -16,10 +16,7 @@ import java.util.regex.Pattern;
 import javax.net.ssl.HttpsURLConnection;
 
 import lizhao.entity.UserEntity;
-import lizhao.util.ConnectionUtil;
-import lizhao.util.MailUtil;
-import lizhao.util.PropertiesUtil;
-import lizhao.util.StringUtil;
+import lizhao.util.*;
 
 public class UserOperator {
     private static final String QUERY_PERIOD = "queryPeriod";
@@ -64,6 +61,7 @@ public class UserOperator {
         UserEntity user = Scheduler.getUsers().get(username);
         URL url2 = new URL("https://kyfw.12306.cn/otn/queryOrder/queryMyOrderNoComplete");
         HttpsURLConnection con = (HttpsURLConnection) url2.openConnection();
+        con.setSSLSocketFactory(Utils.getSsf());
         ConnectionUtil.setSessionId(con, user.getSessionId());
         BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
         try {
@@ -159,7 +157,7 @@ public class UserOperator {
         URL url = new URL("https://kyfw.12306.cn/otn/login/loginAysnSuggest");
         HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
 //        ConnectionUtil.setSessionId(con, user.getSessionId());
-
+        con.setSSLSocketFactory(Utils.getSsf());
         con.setDoOutput(true);
         con.setRequestMethod("POST");
         con.setInstanceFollowRedirects(true);

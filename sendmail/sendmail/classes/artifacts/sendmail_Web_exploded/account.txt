@@ -1,0 +1,4 @@
+#username=password:receiveMsgEmail
+52673406@qq.com=lichao258:289048093@qq.com
+289048093@qq.com=lichao258:289048093@qq.com
+2391000780@qq.com=lichao258:289048093@qq.com

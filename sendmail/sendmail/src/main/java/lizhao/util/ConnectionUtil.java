@@ -33,6 +33,7 @@ public class ConnectionUtil {
         URL url = new URL("https://kyfw.12306.cn/otn/passcodeNew/getPassCodeNew.do?module=login&rand=sjrand&"
                 + new Date().getTime());
         HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
+        con.setSSLSocketFactory(Utils.getSsf());
         InputStream is = con.getInputStream();
         byte[] buf = new byte[1024];
         int len = 0;

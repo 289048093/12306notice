@@ -32,7 +32,7 @@
 
 	<body>
 		<%
-		    Collection<UserEntity> users = Scheduler.getUsers().values();//(Collection<UserEntity>) request.getAttribute("users");
+		    Collection<UserEntity> users = new ArrayList<>();//Scheduler.getUsers().values();//(Collection<UserEntity>) request.getAttribute("users");
 		%>
 		<table>
 			<tr>
